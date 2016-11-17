@@ -8,24 +8,21 @@
 
 import Cocoa
 
-class KeyMapping : NSObject {
+struct KeyMapping {
     var input: KeyboardShortcut
     var output: KeyboardShortcut
-    var enable: Bool
+    let enable: Bool
     
     init(input: KeyboardShortcut, output: KeyboardShortcut, enable: Bool = true) {
         self.input = input
         self.output = output
         self.enable = enable
-        
-        super.init()
     }
     
-    override init() {
+    init() {
         input = KeyboardShortcut()
         output = KeyboardShortcut()
         self.enable = true
-        super.init()
     }
     
     init?(dictionary : [AnyHashable: Any]) {
@@ -38,8 +35,6 @@ class KeyMapping : NSObject {
             self.input = inputKey
             self.output = outputKey
             self.enable = enable
-            
-            super.init()
         }
         
         else {

@@ -8,13 +8,13 @@
 
 import Cocoa
 
-class MediaKeyEvent: NSObject {
+struct MediaKeyEvent {
     let event: CGEvent
     let nsEvent: NSEvent
     
-    var keyCode: Int32
-    var flags: Int
-    var keyDown: Bool
+    let keyCode: Int32
+    let flags: Int
+    let keyDown: Bool
     
     init?(_ event: CGEvent) {
         if event.type.rawValue != UInt32(NX_SYSDEFINED) {
@@ -31,8 +31,6 @@ class MediaKeyEvent: NSObject {
         keyCode = Int32(nsEvent.data1 & 0xffff0000) >> 16
         flags = nsEvent.data1 & 0x0000ffff
         keyDown = ((flags & 0xff00) >> 8) == 0xa
-        
-        super.init()
     }
 }
 

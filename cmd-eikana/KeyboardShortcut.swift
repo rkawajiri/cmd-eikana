@@ -8,28 +8,22 @@
 
 import Cocoa
 
-class KeyboardShortcut: NSObject {
-    var keyCode: CGKeyCode
-    var flags: CGEventFlags
+struct KeyboardShortcut {
+    let keyCode: CGKeyCode
+    let flags: CGEventFlags
     
     init(_ event: CGEvent) {
         self.keyCode = CGKeyCode(event.getIntegerValueField(.keyboardEventKeycode))
         self.flags = event.flags
-        
-        super.init()
     }
-    override init() {
+    init() {
         self.keyCode = 0
         self.flags = CGEventFlags(rawValue: 0)
-        
-        super.init()
     }
     
     init(keyCode: CGKeyCode, flags: CGEventFlags = CGEventFlags()) {
         self.keyCode = keyCode
         self.flags = flags
-        
-        super.init()
     }
     init?(dictionary: [AnyHashable: Any]) {
         if let keyCodeInt = dictionary["keyCode"] as? Int,
@@ -37,13 +31,9 @@ class KeyboardShortcut: NSObject {
             
             self.flags = CGEventFlags(rawValue: UInt64(eventFlagsInt))
             self.keyCode = CGKeyCode(keyCodeInt)
-            
-            super.init()
         } else {
             self.keyCode = 0
             self.flags = CGEventFlags(rawValue: 0)
-            
-            super.init()
             return nil
         }
     }
